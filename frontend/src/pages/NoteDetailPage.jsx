@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
+import { handleDelete } from "../lib/handleDelete";
 import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react";
 
 const NoteDetailPage = () => {
@@ -29,19 +30,6 @@ const NoteDetailPage = () => {
 
     fetchNote();
   }, [id]);
-
-  const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this note?")) return;
-
-    try {
-      await api.delete(`/notes/${id}`);
-      toast.success("Note deleted");
-      navigate("/");
-    } catch (error) {
-      console.log("Error deleting the note:", error);
-      toast.error("Failed to delete note");
-    }
-  };
 
   const handleSave = async () => {
     if (!note.title.trim() || !note.content.trim()) {
@@ -81,7 +69,7 @@ const NoteDetailPage = () => {
               Back to Notes
             </Link>
             <button
-              onClick={handleDelete}
+              onClick={() => handleDelete(null, id, { navigate })}
               className="btn btn-error btn-outline"
             >
               <Trash2Icon className="h-5 w-5" />

@@ -43,7 +43,9 @@ const HomePage = () => {
       <div className="max-w-7xl mx-auto p-4 mt-6">
         {/* loading here */}
         {loading && (
-          <div className="text-center text-primary py-10">Loading notes...</div>
+          <div className="min-h-screen bg-base-200 flex items-center justify-center">
+            <LoaderIcon className="animate-spin size-10" />
+          </div>
         )}
 
         {/* if there is no notes, show this */}
